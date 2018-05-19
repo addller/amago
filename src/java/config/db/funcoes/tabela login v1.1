@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION registrarLogin(
+	_login_name character varying,
+	_email character varying,
+	_pass bytea)
+    RETURNS bigint
+AS $$
+    	declare
+            newId bigint;
+    	begin
+            insert into login(login_name, email, pass) values(_login_name, _email,_pass) returning login.id into newId;
+            return newId;
+	end
+    
+    $$
+language plpgsql;
+--select registrarLogin('ana','ana','ana');

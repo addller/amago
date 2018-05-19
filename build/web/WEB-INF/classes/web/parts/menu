@@ -1,0 +1,65 @@
+<div class="menu">
+            <ul id="menu">
+                <li id="menuItemTendencia">
+                    <span><a id="ancora" href="http://www.google.com">Tendências!!!</a></span>>
+                </li>
+                <li>
+                    Roll da Fama
+                </li>
+                <li>
+                    Quem somos?
+                </li>
+                <li>
+                    Quer ajuda?
+                    <ul>
+                        <li>
+                            Dicas
+                        </li>
+                        <li>
+                            Termos de Uso  
+                        </li>                       
+                    </ul>
+                </li>
+                <li>
+                    Login 
+                </li>
+            </ul>
+            <fieldset>
+                <input name="pesquisar" type="text" placeholder="Pesquisar"/> 
+                <h3>Filtros</h3>
+                <form>
+                    <select>
+                        <optgroup label="Classificar por">
+                            <option value="avaliacao">Avaliação</option>
+                            <option value="visualizacao">Visualizações</option>
+                            <option value="relevancia">Relevância</option>
+                        </optgroup>
+                    </select>
+                    <select>
+                        <optgroup label="Tema">
+                            <option value="filme">Filmes</option>
+                            <option value="politica">Politica</option>
+                            <option value="economia">Economia</option>
+                            <option value="ensino">Ensino</option>
+                            <option value="academico">Acadêmico</option>
+                            <option value="turismo">Turismo</option>
+                            <option value="curiosidade">Curiosidades</option>
+                            <option value="infantil">Infantil</option>
+                            <option value="livre">"Livre"</option>
+                        </optgroup>
+                    </select>
+                    <select>
+                        <optgroup label="Tempo de Envio">
+                            <option value="qualquer">Qualquer</option>
+                            <option value="ano">Ano</option>
+                            <option value="mes">Mês</option>
+                            <option value="semana">Semana</option>
+                            <option value="dia">Dia</option>
+                            <option value="hora">Hora</option>
+                        </optgroup>
+                    </select>     
+                    <input type="reset" value="restaurar"/>
+                    <input type="submit" value="Filtrar"/>
+                </form>
+            </fieldset>
+        </div>

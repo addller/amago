@@ -1,0 +1,120 @@
+create or replace function registrarAtividade(	 
+    _id_endereco bigint,
+    _descricao character varying,
+    _id_membro bigint,
+    _coordenadas character varying
+    )
+   
+    returns integer as
+    $$
+    	declare
+    		newId integer;          
+    	begin
+          	insert into atividade( id_endereco, descricao, id_membro, coordenadas) 
+            	values( _id_endereco, _descricao, _id_membro, _coordenadas)
+                    returning atividade.id into newId;
+                return newId;
+		end        
+    $$
+language plpgsql;
+select registrarAtividade(2,'minha descricao',1,'lat e long');
+
+--select * from endereco;--2
+--select * from membro;--1
+--select registrarAtividade(2,'minha descricao',1,'lat e long');
+
+
+create or replace function registrarAtividade(	 
+    _descricao character varying,
+    _id_membro bigint,
+    _coordenadas character varying,
+    _imagem bytea,
+    _extensao_imagem character varying,
+    _rua character varying,
+    _bairro character varying,
+    _cep character varying,
+    _referencia character varying,
+    _id_cidade integer,
+    _numero character varying
+    )
+    RETURNS TABLE(id_atividade bigint, id_endereco bigint, id_imagem bigint)  as
+    $$
+    	declare
+    		newIdEndereco bigint;
+            newIdAtividade bigint;
+            newIdImagem bigint;            
+    	begin
+        	select id into newIdEndereco from registrarEndereco(_rua, _bairro, _cep, _referencia, _id_cidade, _numero) as id;
+            select id into newIdAtividade from registrarAtividade(newIdEndereco, _descricao, _id_membro, _coordenadas) as id;
+            select id into newIdImagem from registrarImagem(_imagem,_extensao_imagem,newIdAtividade) as id;
+            RETURN QUERY SELECT newIdAtividade, newIdEndereco,newIdImagem;
+		end
+    $$
+language plpgsql;
+
+--select * from membro;-- 1
+--select * id_cidade; 2
+
+select registrarAtividade(	 
+    '_descricao',
+    1,
+    '_coordenadas',
+    '_imagem',
+    '.png',
+    '_rua',
+    '_bairro',
+    '_cep',
+    '_referencia',
+    2,
+    '34'
+    )
+
+
+
+
+create or replace function getAtividadeById(
+    	_id bigint
+	) 
+    returns setof atividade as
+    $$
+    	begin
+        	return query select * from atividade where atividade.id = _id;
+		end
+    $$
+language plpgsql;
+select * from getAtividadeById(3);
+
+
+create or replace function getIdAtividadesByIdCidade(
+    	_id_cidade bigint
+	) 
+    returns table(id_atividade bigint, id_endereco bigint, id_membro bigint, id_imagem bigint) as
+    $$
+    	begin
+        	return query select atividade.id, atividade.id_endereco, atividade.id_membro, imagem.id_atividade
+            	from atividade, endereco, imagem where
+                	endereco.id_cidade = _id_cidade and
+                	atividade.id_endereco = endereco.id and
+                    atividade.id = imagem.id_atividade;
+		end
+    $$
+language plpgsql;
+select * from getIdAtividadesByIdCidade(2);
+
+
+create or replace function getIdAtividadesByNomeCidade(
+    	_nome_cidade character varying
+	) 
+    returns table(id_atividade bigint, id_endereco bigint, id_membro bigint, id_imagem bigint) as
+    $$
+    	begin
+        	return query select atividade.id, atividade.id_endereco, atividade.id_membro, imagem.id_atividade
+            	from atividade, endereco, imagem, cidade where
+                	endereco.id_cidade = cidade.id and
+                	atividade.id_endereco = endereco.id and
+                    atividade.id = imagem.id_atividade and
+                    cidade.nome like '%'||_nome_cidade||'%';
+		end
+    $$
+language plpgsql;
+select * from getIdAtividadesByNomeCidade('tobias');

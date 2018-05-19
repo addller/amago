@@ -1,0 +1,8 @@
+CREATE OR REPLACE FUNCTION regiaoIsFinal() RETURNS TRIGGER AS $$
+    BEGIN
+    	RAISE EXCEPTION USING MESSAGE = 'Não é permitida a inclusão alteracao ou exclusao de registros';
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER regiao_is_final
+BEFORE INSERT OR UPDATE OR DELETE ON regiao FOR EACH ROW EXECUTE PROCEDURE regiaoIsFinal();

@@ -1,0 +1,106 @@
+create or replace function registrarEndereco(
+    	_rua character varying,
+    	_bairro character varying,
+    	_cep character varying,
+    	_referencia character varying,
+    	_id_cidade integer,
+    	_numero character varying
+	) 
+    returns integer as
+    $$
+    	declare
+    		newId integer;
+    	begin
+        	insert into endereco(rua, bairro, cep, referencia, id_cidade, numero)
+            	values(_rua, _bairro, _cep, _referencia, _id_cidade, _numero) returning endereco.id into newId;
+                return newId;
+		end
+    $$
+language plpgsql;
+
+select id from registrarEndereco('Rua a','centro','49300-000','referencia aqui',2,'23') as id;
+
+create or replace function getEnderecoById(
+    	_id bigint
+	) 
+    returns setof endereco as
+    $$
+    	begin
+        	return query select * from endereco where endereco.id = _id;
+		end
+    $$
+language plpgsql;
+select * from getEnderecoById(7) as endereco;
+
+create or replace function getEnderecoByIdCidade(
+    	_id_cidade integer,
+    	_start bigint,
+    	_limit bigint
+	) 
+    returns setof endereco as
+    $$
+    	begin
+        	return query select * from endereco 
+            	where endereco.id_cidade = id_cidade and endereco.id > _start limit _limit;
+		end
+    $$
+language plpgsql;
+select * from getEnderecoByIdCidade(2,3,8) as endereco;
+
+create or replace function getEnderecoByCep(
+    	_cep character varying,
+    	_start bigint,
+    	_limit bigint
+	) 
+    returns setof endereco as
+    $$
+    	begin
+        	return query select * from endereco 
+            	where endereco.cep like '%'||cep||'%' and endereco.id > _start limit _limit;
+		end
+    $$
+language plpgsql;
+select * from getEnderecoByCep('49300-000',6,8) as endereco;
+
+create or replace function getEnderecoByBairro(
+    	--_rua character varying,
+    	_bairro character varying,
+    	_start bigint,
+    	_limit bigint
+	) 
+    returns setof endereco as
+    $$
+    	begin
+        	return query select * from endereco 
+            	where endereco.bairro like '%'||_bairro||'%' and endereco.id > _start limit _limit;
+		end
+    $$
+language plpgsql;
+select * from getEnderecoByBairro('centro',6,8) as endereco;
+
+create or replace function getEnderecoByRua(
+    	_rua character varying,
+    	_start bigint,
+    	_limit bigint
+	) 
+    returns setof endereco as
+    $$
+    	begin
+        	return query select * from endereco 
+            	where endereco.rua like '%'||_rua||'%' and endereco.id > _start limit _limit;
+		end
+    $$
+language plpgsql;
+select * from getEnderecoByRua('a',6,8) as endereco;
+
+create or replace function getEnderecoByIdAtividade(
+    	_id_atividade bigint
+	) 
+    returns setof endereco as
+    $$
+    	begin
+        	return query select * from endereco where endereco.id = _id_atividade;
+		end
+    $$
+language plpgsql;
+select * from getEnderecoByIdAtividade(3);

@@ -1,0 +1,173 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Linker</title>
+    <meta name="description" content="">
+</head>
+<body>
+    <script> trigger();</script>
+    <nav class="topo"> 
+        <figure class="logo">
+            <img src="img/logo_linker_eeeeff.png" alt="logo"/>
+            <figcaption>
+                <h2>Linker</h2>
+                <h3>Ligando Pessoas</h3>
+            </figcaption>
+        </figure>            
+        <span class="icon help" onclick="exibirFiltros()"></span>
+        <span class="icon perfil"></span>
+        <input type="button" value="Cadastre-se" onclick="exibirCadastro()"/>
+        <input type="button" value="Entrar">
+        <div id="pesquisar">
+            <input name="pesquisar" type="text" placeholder="Pesquisar"/>          
+            <span class="icon lupa"></span>
+        </div>
+        <fieldset id="filtros">
+            <form id="formFiltros">
+                <span class="icon close" onclick="fecharFormFiltros()"></span>   
+                <h2>Filtros  </h2>
+                <input name="pesquisar" type="text" placeholder="Pesquisar"/> 
+                <select>
+                    <optgroup label="Classificar por">
+                        <option value="avaliacao">Avaliação</option>
+                        <option value="visualizacao">Visualizações</option>
+                        <option value="relevancia">Relevância</option>
+                    </optgroup>
+                </select>
+                <select>
+                    <optgroup label="Tema">
+                        <option value="filme">Filmes</option>
+                        <option value="politica">Politica</option>
+                        <option value="economia">Economia</option>
+                        <option value="ensino">Ensino</option>
+                        <option value="academico">Acadêmico</option>
+                        <option value="turismo">Turismo</option>
+                        <option value="curiosidade">Curiosidades</option>
+                        <option value="infantil">Infantil</option>
+                        <option value="livre">"Livre"</option>
+                    </optgroup>
+                </select>
+                <select>
+                    <optgroup label="Tempo de Envio">
+                        <option value="qualquer">Qualquer</option>
+                        <option value="ano">Ano</option>
+                        <option value="mes">Mês</option>
+                        <option value="semana">Semana</option>
+                        <option value="dia">Dia</option>
+                        <option value="hora">Hora</option>
+                    </optgroup>
+                </select>     
+                <input type="reset" value="Restaurar"/>
+                <input type="submit" value="Filtrar"/>
+            </form>
+        </fieldset>   
+        <fieldset id="cadastro">  
+            <span class="icon close" onclick="fecharFormCadastro()"></span>   
+            <h2>Cadastre-se</h2>
+            <form id="formCadastro">
+                <label for="forLoginName">Nome de Login:</label><input id="forLoginName" name="loginName" type="text"/> 
+                <label for="forEmail">Email:</label><input id="forEmail" name="email" type="text"/> 
+                <label for="forPass">Senha:</label><input id="forPass" name="pass" type="password"/> 
+                <input type="button" value="Enviar" onclick="cadastrar()"/> 
+            </form>
+            <p>Termos de uso</p>
+        </fieldset>
+        <div>
+            <hgroup >
+                <h1>Linker</h1>
+                <h2>Ligando Pessoas</h2>
+                <h3>Compartilhe conhecimento e diversão</h3>
+                <h4>Olavo tem razão</h4>
+            </hgroup>                
+        </div>
+    </nav>  
+    <nav id="menu">
+        <ul class="menu">
+            <li>
+                Tendências                   
+            </li>
+            <li>
+                Roll da Fama
+            </li>
+            <li>
+                Ajuda?
+                <ul>
+                    <li>
+                        Dicas
+                    </li>
+                    <li>
+                        Termos de Uso  
+                    </li>   
+                    <li>
+                        Sobre Nós?
+                    </li>
+                </ul>
+            </li>                
+        </ul>
+        <div>
+            <ul>
+                <li>
+                    #userName# 
+                    #email#
+                    <ul>
+                        <li>
+                            EditarPerfil
+                        </li>
+                        <li>Sair</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <p id="metrica">Tatu</p>
+    <div>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="Registrar uma ocorrência">Cadastre-se!</a></li>
+                    <li><a href="Alterar uma ocorrência">Topico</a></li>
+                    <li><a href="Verificar detalhes">Postar</a></li>
+                    <li><a href="Excluir">Auto</a></li>
+                    <li><a href="Solucionar">Login</a></li>
+                    <li><a href="Logar">maps</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <section>
+        <div>            
+            <h1>Menu</h1>
+        </div>
+        <div>
+            <form id="formCadastroLixo">
+                <label for="rua">Rua: </label>
+                <input type="text" id="rua" name="rua" placeholder="Informe a rua"/>
+                <label for="numero">Numero: </label>
+                <input type="text" id="numero" class="minInput" name="numero" placeholder="Informe o número"/>
+                <br/>
+                <label for="cidade">Cidade: </label>
+                <input type="text" id="cidade" name="cidade" placeholder="Informe a ciadade"/>
+                <label for="estado">Estado: </label>
+                <input type="text" id="estado" class="minInput" name="estado" placeholder="Informe o estado"/>
+                <br/>
+                <label for="bairro">Bairro: </label>
+                <input type="text" id="bairro" name="bairro" placeholder="Informe o bairro"/>
+                <label for="cep">Cep: </label>
+                <input type="text" id="cep" class="minInput" name="cep" placeholder="Informe o CEP"/>
+                <br/>
+                <label for="foto">Foto: </label>
+                <input type="file" id="foto" name="foto" />
+                <label for="descricao">Descrição: </label>
+                <br/>
+                <textarea name="descricao" id="descricao" placeholder="Adicione uma descrição" rows="10" cols="50" maxlength="500"></textarea>
+                <br/>
+                <input type="reset" value="Limpar campos">
+                <input type="button" value="Registrar"/>            
+            </form>
+        </div>
+        <p id="coords">I am here</p>
+        <p id="map"></p>
+    </section>
+</body>
+</html>

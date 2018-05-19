@@ -1,0 +1,24 @@
+CNH
+DETRAN - motorista - Documentos Oficiais com Foto
+São considerados documentos oficiais de identidades as carteiras expedidas
+pelos Comandos Militares, pelas Secretarias de Segurança, pelos Corpos de
+Bombeiros, pelas Policias Militares, pelos órgãos Fiscalizadores de exercício
+profissional (Ordens, Conselhos, etc.) Carteira de Identidade (RG), Carteira de
+Trabalho e Previdência Social (CTPS), Carteira de Órgão ou Conselho de
+Classe (OAB, CRM, CRP. Etc.), Certificado Militar, Carteira Nacional de
+Habilitação (CNH) com foto, Passaporte, Carteiras expedidas por órgão
+público que por Lei Federal valem como identidade.
+
+create or replace function registrarTipoDocumento(_tipo character varying, _sigla character varying)    	
+    returns integer as
+    $$
+    	declare
+    		newId integer;
+    	begin
+          	insert into tipo_documento(tipo, sigla) values(_tipo, _sigla) returning tipo_documento.id into newId;
+			return newId;
+		end
+    $$
+language plpgsql;
+
+--select registrarTipoDocumento('Ordem dos advogados do Brasil','OAB');

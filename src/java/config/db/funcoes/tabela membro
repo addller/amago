@@ -1,0 +1,54 @@
+create or replace function registrarMembro(	 
+    _id_login bigint,
+    _id_cadastro bigint
+    )
+   
+    returns integer as
+    $$
+    	declare
+    		newId integer;          
+    	begin
+          	insert into membro(id_login, id_cadastro) 
+            	values( _id_login, _id_cadastro)
+                    returning membro.id into newId;
+                return newId;
+		end        
+    $$
+language plpgsql;
+--select * from login; --1
+--select * from cadastro;
+--select registrarMembro(1,1);
+
+create or replace function registrarMembro(
+    	_rua character varying,
+    	_bairro character varying,
+    	_numero character varying,
+    	_cep character varying,
+    	_referencia character varying,
+    	_id_cidade integer,
+    	_nome character varying,
+    	_data_nascimento date,
+    	_id_sexo integer,
+    	_login_name character varying,
+		_email character varying,
+		_pass bytea
+	) 
+    RETURNS TABLE(id_login bigint, id_membro bigint, id_cadastro bigint, id_endereco bigint)  as
+    $$
+    	declare
+    		newIdEndereco bigint;
+            newIdCadastro bigint;
+            newIdLogin bigint;
+            newIdMembro bigint;
+    	begin
+        	select id into newIdEndereco from registrarEndereco(_rua, _bairro, _cep, _referencia, _id_cidade,_numero) as id;
+            select id into newIdCadastro from registrarCadastro(_nome,newIdEndereco,_data_nascimento,_id_sexo) as id;
+            select id into newIdLogin from registrarLogin(_login_name,_email,_pass) as id;
+            select id into newIdMembro from registrarMembro(newIdLogin,newIdCadastro) as id;
+            RETURN QUERY SELECT newIdLogin, newIdMembro,newIdCadastro,newIdEndereco;
+		end
+    $$
+language plpgsql;
+select * from registrarMembro('Rua a','centro','34','49300-000','referencia aqui',2,
+                      'ansa',now()::Date,2,
+                      'logizngfhfa','emghzaffila','pass') as newTable;

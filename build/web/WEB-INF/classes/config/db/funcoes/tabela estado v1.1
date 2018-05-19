@@ -1,0 +1,42 @@
+create or replace function registrarEstado(
+    	_nome character varying,
+    	_sigla character varying,    	
+    	_id_pais integer,
+   	_id_regiao integer
+) 
+    returns integer as
+    $$
+    	declare
+    		newId integer;
+            isDuplicado integer;
+    	begin
+        	select id into isDuplicado from estado where estado.nome = _nome and estado.id_pais = _id_pais;
+            if(isDuplicado is not null) then  
+            	RAISE EXCEPTION USING MESSAGE = 'Estado: ['||_nome||'] já registrada no pais de código '||_id_pais;
+			end if;
+			select id into isDuplicado from estado where estado.sigla = _sigla and estado.id_pais = _id_pais;
+			if(isDuplicado is not null) then
+            	RAISE EXCEPTION USING MESSAGE = 'Sigla: ['||_sigla||']  já registrada para o estado de código '||isDuplicado||' país de código '||_id_pais;
+			end if;
+            insert into estado(nome, sigla, id_regiao, id_pais) 
+            	values(_nome, _sigla, _id_regiao,_id_pais)
+                returning estado.id into newId;
+				return newId;
+		end
+    $$
+language plpgsql;
+--select *  from registrarEstado('Sergipe','SE',34,5) as estado;
+
+
+
+
+create or replace function consultarEstadoPorId(_id integer) RETURNS SETOF estado
+	as
+    $$
+    	begin    		
+			return query select * from estado where id = _id;
+		end
+    $$
+language plpgsql;
+
+--select * from consultarEstadoPorId(2);

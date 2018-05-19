@@ -1,0 +1,25 @@
+configuracoes
+    Perfil
+	alterar
+	atualizar
+	consultar 
+    Conteudo
+        Incentivo
+        upgrade	
+        denuncias
+	    feitas
+	    recebidas
+	monetizacao
+	reclamacao
+contato
+
+
+politica
+    monetizacao
+rescisao
+blog do linker (para notificar mudanças antes de ocorrerem)
+
+Se você acredita que o material localizado ou vinculado pelo Linker viola seus direitos autorais, recomendamos que você notifique o Linker de acordo com a Política de Direitos Autorais do Milênio Digital (“DMCA”).
+O Linker responderá a todos esses avisos, inclusive conforme necessário ou apropriado, removendo o material infrator ou desativando todos os links para o material infrator.
+
+No caso de tal rescisão, o Linker não terá nenhuma obrigação de fornecer um reembolso de quaisquer valores pagos anteriormente.

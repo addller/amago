@@ -1,0 +1,95 @@
+Ações em 16 de agosto de 2018
+    Tipo: adição de fucionalidades
+    Requisição de alteração, aprovação e responsabilidade: Jerre A. Santos
+    Importância: alta
+    Nivel de afetação de componentes: baixa
+    Funções do banco de dados afetadas: 0
+    Solicitação: aprovada
+    Status: alterações realizadas com sucesso
+    Fase: implementação
+
+    INCLUSÃO DAS TABELAS
+
+    atividade
+        id
+        id_tipo_atividade
+        id_endereco
+        descricao 
+        id_status_atividade
+        data_criacao
+        data_solucao
+        data_deslocamento
+        data_exclusao
+        justificativa
+        id_membro
+
+    documento
+        id
+        id_tipo
+        id_emissor
+        id_cadastro
+        data_emissao
+        data_validade        
+
+    emissor_documento
+        id
+        id_estado
+        nome_emissor  
+
+    status_agente
+        id
+        nivel
+        descricao
+        tipo
+
+    tipo_documento
+        id
+        tipo
+        sigla
+
+    tipo_atividade
+        fiscalizacao
+        acompanhamento
+        solucao
+    
+    ALTERAÇÃO DAS TABELAS:
+
+    cadatro
+        id
+        nome
+        id_endereco
+        data_nascimento
+        sexo
+
+    sexo
+        id
+        masculino
+        feminino    
+
+    membro
+        id
+        id_login
+        is_suspenso
+        is_banido
+        id_cadastro(adicionado na versao 2.0)
+
+        
+
+    
+        NOTA
+        TODAS, REPITO TODAS, as colunas da tabelas sexo são inicializadas com false;
+        insert into sexo(masculino) values(true);
+        insert into sexo(feminino) values(true);
+        colunas atuais
+        masculino = true, feminino = false
+        feminino = false, masculino = true
+        
+        Para adicionar outro registro, deve-se adicionar uma coluna e inicializar com true
+    conforme exemplos acima, o mesmo é aplicado para a tabela tipo atividade
+        ex.: insert into sexo(NOVA_COLUNA) values(true);
+
+
+        
+
+    
+    

@@ -1,0 +1,20 @@
+create or replace function registrarCadastro(
+    _nome character varying,
+    _id_endereco bigint,
+    _data_nascimento date,
+    _id_sexo integer)
+   
+    returns integer as
+    $$
+    	declare
+    		newId integer;          
+    	begin
+          	insert into cadastro(nome, id_endereco, data_nascimento, id_sexo) 
+            	values(_nome, _id_endereco, _data_nascimento, _id_sexo)returning cadastro.id into newId;
+                return newId;
+		end        
+    $$
+language plpgsql;
+--select * from endereco;--2
+--select * from sexo;--2
+--select registrarCadastro('ana',2, now()::Date,2);

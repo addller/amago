@@ -1,0 +1,21 @@
+
+create or replace function registrarPais(
+    	_nome character varying,
+    	_sigla_pais character varying,
+    	_lingua_oficial character varying,
+    	_sigla_lingua character varying,
+    	_id_continente integer,
+    	_fone_code character varying) 
+    returns integer as
+    $$
+    	declare
+    		newId integer;
+    	begin
+    		insert into pais(nome, sigla_pais, lingua_oficial, sigla_lingua, id_continente, fone_code) 
+            	values(_nome, _sigla_pais, _lingua_oficial,_sigla_lingua, _id_continente, _fone_code)
+                	returning pais.id into newId;
+			return newId;
+		end
+    $$
+language plpgsql;
+--select id_pais from registrarPais('Brasil','BRA','Português','pt', 3,'+55') as id_pais;

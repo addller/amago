@@ -1,0 +1,36 @@
+AS PRINCIPAIS FUNÇÕES DE REGISTRO SÃO: 
+
+select * registrarAtividade(	 
+    _descricao character varying,
+    _id_membro bigint,
+    _coordenadas character varying,
+    _imagem bytea,
+    _extensao_imagem character varying,
+    _rua character varying,
+    _bairro character varying,
+    _cep character varying,
+    _referencia character varying,
+    _id_cidade integer,
+    _numero character varying
+    )
+Retorna: TABLE(id_atividade bigint, id_endereco bigint, id_imagem bigint)
+  
+
+
+select * from registrarMembro(
+    	_rua character varying,
+    	_bairro character varying,
+    	_numero character varying,
+    	_cep character varying,
+    	_referencia character varying,
+    	_id_cidade integer,
+    	_nome character varying,
+    	_data_nascimento date,
+    	_id_sexo integer,
+    	_login_name character varying,
+	_email character varying,
+	_pass bytea
+	) 
+Retorna: TABLE(id_login bigint, id_membro bigint, id_cadastro bigint, id_endereco bigint);
+   
+

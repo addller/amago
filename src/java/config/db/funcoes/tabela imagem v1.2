@@ -1,0 +1,19 @@
+create or replace function registrarImagem(
+    _imagem bytea,
+    _extensao character varying,
+    _id_atividade bigint    
+    )
+   
+    returns integer as
+    $$
+    	declare
+    		newId integer;          
+    	begin
+          	insert into imagem(imagem, extensao,id_atividade) 
+            	values(_imagem, _extensao,_id_atividade)returning imagem.id into newId;
+                return newId;
+		end        
+    $$
+language plpgsql;
+--select * from atividade;
+--select registrarImagem('imagem','mpge4',3);

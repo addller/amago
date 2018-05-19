@@ -1,0 +1,105 @@
+AMAGO("jdbc:postgresql://localhost:5432/amago", "postgres", "jerre");
+Açoes em 15/05/2018 v1.0
+SGBD Postgres
+Criadas as bases de dados amago com as tabelas:
+    cadastro
+        id        
+        nome
+        id_endereco
+        data_nascimento
+        sexo
+        id_localizacao(removido na versão 2.0)
+        id_agente(removido na versão 2.0)
+
+    endereco
+        id
+        rua
+        bairro
+        cep
+        referencia
+        id_cidade
+
+    cidade
+        id
+        id_estado
+        nome
+
+    estado
+        id
+        id_pais
+        nome
+        sigla
+        id_regiao
+
+    login
+        id
+        email
+        pass
+        login_name
+
+    membro
+        id
+        id_login
+        is_suspenso
+        is_banido
+        id_cadastro(adicionado na versao 2.0)
+    
+    pais
+        id
+        nome
+        sigla_pais
+        sigla_lingua
+        lingua_oficial
+        id_continente
+        fone_code
+
+    continente
+        id
+        nome
+
+    regiao
+        id
+        nome
+        sigla
+
+    status_membro
+        id
+        nivel
+        descricao
+        tipo
+Obs.: os ids são do tipo serial ou bigserial, com auto incremento
+
+Ações realizadas
+    Tabela regiao populada com base na rosa dos ventos
+    Scripts:
+        insert into regiao(nome, abreviacao) values('Leste','E');
+        insert into regiao(nome, abreviacao) values('Oeste','O');
+        insert into regiao(nome, abreviacao) values('Norte','N');
+        insert into regiao(nome, abreviacao) values('Sul','S');
+        insert into regiao(nome, abreviacao) values('Nordeste','NE');
+        insert into regiao(nome, abreviacao) values('Noroeste','NO');
+        insert into regiao(nome, abreviacao) values('Sudeste','SE');
+        insert into regiao(nome, abreviacao) values('Sudoeste','SO');
+        insert into regiao(nome, abreviacao) values('Lés-nordeste','ENE');
+        insert into regiao(nome, abreviacao) values('Lés-sudeste','ESE');
+        insert into regiao(nome, abreviacao) values('Su-sudeste','SSE');
+        insert into regiao(nome, abreviacao) values('Nor-nordeste','NNE');
+        insert into regiao(nome, abreviacao) values('Nor-noroeste','NNO');
+        insert into regiao(nome, abreviacao) values('Su-sudoeste','SSO');
+        insert into regiao(nome, abreviacao) values('Oés-sudoeste','OSO');
+        insert into regiao(nome, abreviacao) values('Oés-noroeste','ONO');
+
+    Tabela continente populada, obs: não há consenso entre os geográfos "Novidade XD"
+        insert into continente(nome) values('América do norte');
+        insert into continente(nome) values('América Central');
+        insert into continente(nome) values('América do sul');
+        insert into continente(nome) values('África');
+        insert into continente(nome) values('Ásia');
+        insert into continente(nome) values('Europa');
+        insert into continente(nome) values('Oceania');
+        insert into continente(nome) values('Antártida');
+
+
+    23 hora e 20 minutos
+    Tabela região alterada para não aceitar mais a inclusão, alteração ou exclusão de registros.
+    regiaoIsFinal() é a trigger que proporciona isto

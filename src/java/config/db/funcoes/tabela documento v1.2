@@ -1,0 +1,21 @@
+create or replace function registrarDocumento(
+    _valor character varying,
+    _id_tipo integer,
+    _id_emissor integer,
+    _id_cadastro bigint,
+    _data_emissao date,
+    _data_validade date	
+	)
+    returns integer as
+    $$
+    	declare
+    		newId integer;          
+    	begin
+          	insert into documento(valor, id_tipo, id_emissor,id_cadastro, data_emissao, data_validade) 
+            	values(_valor,_id_tipo, _id_emissor,_id_cadastro,_data_emissao, _data_validade ) returning documento.id into newId;
+			return newId;
+        end
+    $$
+language plpgsql;
+select * from cadastro;
+select registrarDocumento('aaa',1,2,1,now()::Date,now()::Date);

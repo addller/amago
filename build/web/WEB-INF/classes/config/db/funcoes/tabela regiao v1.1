@@ -1,0 +1,30 @@
+create or replace function consultarRegiaoPorNome(_nome character varying) RETURNS SETOF regiao
+	as
+    $$
+    	begin    		
+			return query select * from regiao where nome like '%'||_nome||'%';
+		end
+    $$
+language plpgsql;
+--select id, nome, sigla from consultarRegiaoPorNome('nor') as regiao;
+
+
+create or replace function consultarRegiaoPorSigla(_sigla character varying) RETURNS SETOF regiao
+	as
+    $$
+    	begin    		
+			return query select * from regiao where sigla like '%'||_sigla||'%';
+		end
+    $$
+language plpgsql;
+--select id, nome, sigla from consultarRegiaoPorSigla('no') as regiao;
+
+create or replace function consultarRegiaoPorId(_id integer) RETURNS SETOF regiao
+	as
+    $$
+    	begin    		
+			return query select * from regiao where id = _id ;
+		end
+    $$
+language plpgsql;
+--select id, nome, sigla from consultarRegiaoPorId(5) as regiao;

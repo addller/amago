@@ -1,0 +1,42 @@
+create or replace function registrarCidade(_id_estado integer, _nome character varying) 
+    returns integer as
+    $$
+    	declare
+    		newId integer;
+            isDuplicado integer;
+            siglaEstado character varying;
+    	begin
+        	select id into isDuplicado from cidade where cidade.nome = _nome and cidade.id_estado = _id_estado;
+            if(isDuplicado is null) then  
+            	insert into cidade(id_estado, nome) values(_id_estado, _nome) returning cidade.id into newId;
+				return newId;
+            else
+            	RAISE EXCEPTION USING MESSAGE = 'Cidade: '||_nome||' já registrada no estado de código '||_id_estado;
+            end if;
+		end
+    $$
+language plpgsql;
+--select * from registrarCidade(2, 'Tobiafs Barreto') as cidade;
+
+
+
+
+create or replace function getCidadeByNome(_nome character varying) RETURNS SETOF cidade
+	as
+    $$
+    	begin    		
+			return query select * from cidade where nome like '%'||_nome||'%';
+		end
+    $$
+language plpgsql;
+select getCidadeByNome('tobias');
+
+create or replace function getCidadeById(_id bigint) RETURNS SETOF cidade
+	as
+    $$
+    	begin    		
+			return query select * from cidade where cidade.id = _id;
+		end
+    $$
+language plpgsql;
+select getCidadeById(2);

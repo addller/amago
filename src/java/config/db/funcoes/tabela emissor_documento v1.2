@@ -1,0 +1,27 @@
+NOTA:
+    Como não dispomos da base da dados referentes aos emissores de documentos
+    à medida em que os usuários vão inserindo documentos a base de dados vai sendo povoada
+    sem registros duplicados, conforme função abaixo.
+    Não é uma funcionalidade essencial, mais é importante pois os documentos podem ter
+    sua validade contestada, ou confirmada, ou inconsistente
+    A função não impede a inclusão de registros inválidos de emissores de documentos
+    pois seria necessário o acesso à base de dados oficial
+
+create or replace function registrarEmissor(_id_estado integer, _nome_emissor character varying)    	
+    returns integer as
+    $$
+    	declare
+    		newId integer;
+    	begin
+        	select id into newId from emissor_documento 
+            	where emissor_documento.nome_emissor = _nome_emissor and emissor_documento.id_estado = _id_estado;
+            if(newId is null) then
+          		insert into emissor_documento(id_estado, nome_emissor) 
+                	values(_id_estado, _nome_emissor) returning emissor_documento.id into newId;
+			end if;
+            return newId;
+		end
+    $$
+language plpgsql;
+
+--select registrarEmissor(2, 'Instituto nacional de identificacao');
